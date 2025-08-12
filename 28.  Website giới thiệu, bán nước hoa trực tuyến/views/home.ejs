@@ -1,0 +1,20 @@
+<%- include('partials/header', { title: 'Trang chủ' }) %>
+<main class="container">
+  <h1>Nước hoa nổi bật</h1>
+  <div class="grid">
+    <% products.forEach(p => { %>
+      <div class="card">
+        <a href="/products/<%= p.slug %>">
+          <img src="<%= p.imageUrl || '/img/placeholder.svg' %>" alt="<%= p.name %>" />
+          <h3><%= p.name %></h3>
+          <p><%= (p.price/100).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></p>
+        </a>
+        <form action="/cart/add/<%= p.id %>?_csrf=<%= csrfToken %>" method="post">
+          <input type="hidden" name="quantity" value="1" />
+          <button type="submit">Thêm vào giỏ</button>
+        </form>
+      </div>
+    <% }) %>
+  </div>
+</main>
+<%- include('partials/footer') %>

@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_JWT_SECRET=${APP_JWT_SECRET:-change_this_secret_key_please_change}
+    volumes:
+      - backend-data:/app/data
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+    environment:
+      - VITE_API_URL=http://localhost:8080
+
+volumes:
+  backend-data:

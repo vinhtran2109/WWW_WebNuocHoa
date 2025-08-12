@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= title %> - Perfume Store</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container">
+      <a href="/">Trang chủ</a>
+      <a href="/products">Sản phẩm</a>
+      <% if (session && session.user) { %>
+        <span>Xin chào, <%= session.user.fullName %></span>
+        <% if (session.user.role === 'ADMIN') { %>
+          <a href="/admin">Admin</a>
+        <% } %>
+        <form method="post" action="/logout?_csrf=<%= csrfToken %>" style="display:inline">
+          <button type="submit">Đăng xuất</button>
+        </form>
+      <% } else { %>
+        <a href="/login">Đăng nhập</a>
+        <a href="/register">Đăng ký</a>
+      <% } %>
+      <a href="/cart">Giỏ hàng</a>
+    </nav>
+  </header>

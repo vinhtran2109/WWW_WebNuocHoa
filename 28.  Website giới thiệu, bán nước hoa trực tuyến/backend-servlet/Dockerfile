@@ -1,0 +1,10 @@
+FROM maven:3.9.8-eclipse-temurin-17 AS build
+WORKDIR /app
+COPY pom.xml .
+RUN mvn -q -DskipTests dependency:go-offline || true
+COPY src ./src
+RUN mvn -q -DskipTests package
+
+FROM tomcat:10.1-jdk17
+COPY --from=build /app/target/backend-servlet-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
+EXPOSE 8080

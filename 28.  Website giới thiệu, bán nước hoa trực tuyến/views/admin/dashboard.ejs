@@ -1,0 +1,14 @@
+<%- include('../partials/header', { title: 'Bảng điều khiển' }) %>
+<main class="container">
+  <h1>Admin</h1>
+  <ul>
+    <li>Người dùng: <%= counts.users %></li>
+    <li>Sản phẩm: <%= counts.products %></li>
+    <li>Loại sản phẩm: <%= counts.categories %></li>
+    <li>Đơn hàng: <%= counts.orders %></li>
+  </ul>
+  <nav>
+    <a href="/admin/products">Quản lý sản phẩm</a>
+  </nav>
+</main>
+<%- include('../partials/footer') %>

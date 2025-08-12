@@ -1,0 +1,16 @@
+<%- include('../partials/header', { title: product.name }) %>
+<main class="container">
+  <div class="product-detail">
+    <img src="<%= product.imageUrl || '/img/placeholder.svg' %>" alt="<%= product.name %>" />
+    <div>
+      <h1><%= product.name %></h1>
+      <p><%= (product.price/100).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></p>
+      <p><%= product.description %></p>
+      <form action="/cart/add/<%= product.id %>?_csrf=<%= csrfToken %>" method="post">
+        <input type="number" name="quantity" min="1" value="1" />
+        <button type="submit">Thêm vào giỏ</button>
+      </form>
+    </div>
+  </div>
+</main>
+<%- include('../partials/footer') %>

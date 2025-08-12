@@ -1,0 +1,33 @@
+<%- include('../partials/header', { title: 'Giỏ hàng' }) %>
+<main class="container">
+  <h1>Giỏ hàng</h1>
+  <% if (!cart.items.length) { %>
+    <p>Giỏ hàng trống</p>
+  <% } else { %>
+  <form action="/cart/update?_csrf=<%= csrfToken %>" method="post">
+    <table>
+      <thead>
+        <tr><th>Sản phẩm</th><th>Đơn giá</th><th>Số lượng</th><th>Thành tiền</th></tr>
+      </thead>
+      <tbody>
+        <% cart.items.forEach(it => { %>
+          <tr>
+            <td><%= it.name %></td>
+            <td><%= (it.unitPrice/100).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
+            <td><input type="number" min="0" name="<%= it.productId %>" value="<%= it.quantity %>" /></td>
+            <td><%= ((it.unitPrice*it.quantity)/100).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+      <tfoot>
+        <tr><td colspan="3" style="text-align:right">Tổng:</td><td><%= (cart.totalCents/100).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td></tr>
+      </tfoot>
+    </table>
+    <button type="submit">Cập nhật giỏ</button>
+  </form>
+  <form action="/checkout?_csrf=<%= csrfToken %>" method="post">
+    <button type="submit">Thanh toán</button>
+  </form>
+  <% } %>
+</main>
+<%- include('../partials/footer') %>

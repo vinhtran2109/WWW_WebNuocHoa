@@ -1,0 +1,46 @@
+{
+  "name": "perfume-store",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website giới thiệu và bán nước hoa trực tuyến",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "prisma:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "node prisma/seed.js"
+  },
+  "keywords": [
+    "perfume",
+    "ecommerce",
+    "express",
+    "prisma"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.18.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "csurf": "^1.11.0",
+    "dotenv": "^16.6.1",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.17.3",
+    "helmet": "^7.1.0",
+    "method-override": "^3.0.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.13",
+    "prisma": "^5.18.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

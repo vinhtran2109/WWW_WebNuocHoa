@@ -1,0 +1,14 @@
+<%- include('../partials/header', { title: 'Đăng ký' }) %>
+<main class="container">
+  <h1>Đăng ký</h1>
+  <% if (typeof error !== 'undefined') { %>
+    <p class="error"><%= error %></p>
+  <% } %>
+  <form method="post" action="/register?_csrf=<%= csrfToken %>">
+    <label>Email <input type="email" name="email" required /></label>
+    <label>Họ tên <input type="text" name="fullName" required /></label>
+    <label>Mật khẩu <input type="password" name="password" required minlength="6" /></label>
+    <button type="submit">Tạo tài khoản</button>
+  </form>
+</main>
+<%- include('../partials/footer') %>

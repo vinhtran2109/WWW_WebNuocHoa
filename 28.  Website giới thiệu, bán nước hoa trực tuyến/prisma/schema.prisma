@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  passwordHash String
+  fullName     String
+  role         String    @default("CUSTOMER") // Allowed: CUSTOMER, ADMIN
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  orders       Order[]
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  slug      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  slug        String    @unique
+  description String
+  price       Int       // store as cents
+  imageUrl    String?
+  stock       Int       @default(0)
+  categoryId  Int
+  category    Category  @relation(fields: [categoryId], references: [id])
+  orderItems  OrderItem[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  userId     Int
+  user       User        @relation(fields: [userId], references: [id])
+  totalCents Int
+  status     String      @default("PENDING") // Allowed: PENDING, PAID, CANCELED
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  items      OrderItem[]
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  unitPrice Int      // snapshot price cents at purchase
+}

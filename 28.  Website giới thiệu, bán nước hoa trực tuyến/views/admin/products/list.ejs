@@ -1,0 +1,27 @@
+<%- include('../../partials/header', { title: 'Quản lý sản phẩm' }) %>
+<main class="container">
+  <h1>Quản lý sản phẩm</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tên</th>
+        <th>Loại</th>
+        <th>Giá</th>
+        <th>Tồn kho</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach(p => { %>
+        <tr>
+          <td><%= p.id %></td>
+          <td><%= p.name %></td>
+          <td><%= p.category ? p.category.name : '' %></td>
+          <td><%= (p.price/100).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
+          <td><%= p.stock %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</main>
+<%- include('../../partials/footer') %>
